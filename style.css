@@ -1,0 +1,926 @@
+/* ===================================================
+   CUSTOMER SEGMENTATION DASHBOARD
+=================================================== */
+
+:root{
+
+    --primary:#B99878;
+    --primary-dark:#8B6A4E;
+
+    --bg:#0F1117;
+    --panel:#1B1E27;
+    --panel2:#232733;
+
+    --text:#F5F5F5;
+    --muted:#A7A7A7;
+
+    --border:rgba(255,255,255,.08);
+
+    --radius:18px;
+
+}
+
+
+/* ===================================================
+   APP
+=================================================== */
+
+html,
+body,
+.stApp{
+
+    background:var(--bg);
+    color:var(--text);
+
+    font-family:Inter,sans-serif;
+
+}
+
+.stApp{
+
+background:
+
+radial-gradient(circle at top right,
+rgba(185,152,120,.10),
+transparent 35%),
+
+radial-gradient(circle at bottom left,
+rgba(139,106,78,.12),
+transparent 35%),
+
+#0F1117;
+
+}
+
+
+/* ===================================================
+   Hide Streamlit
+=================================================== */
+
+#MainMenu,
+footer,
+header{
+
+display:none;
+
+}
+
+
+/* ===================================================
+   Main Container
+=================================================== */
+
+.block-container{
+
+padding-top:2rem;
+padding-bottom:3rem;
+max-width:1500px;
+
+}
+
+
+/* ===================================================
+   Sidebar
+=================================================== */
+
+section[data-testid="stSidebar"]{
+
+background:#181B22;
+
+border-right:1px solid var(--border);
+
+}
+
+section[data-testid="stSidebar"] *{
+
+color:white;
+
+}
+
+section[data-testid="stSidebar"] h1{
+
+font-size:1.3rem;
+font-weight:700;
+
+}
+
+section[data-testid="stSidebar"] .stRadio label{
+
+padding:12px 14px;
+
+border-radius:12px;
+
+transition:.25s;
+
+}
+
+section[data-testid="stSidebar"] .stRadio label:hover{
+
+background:#252935;
+
+}
+
+section[data-testid="stSidebar"] .stRadio label:has(input:checked){
+
+background:linear-gradient(
+90deg,
+#8B6A4E,
+#B99878
+);
+
+color:white;
+
+font-weight:700;
+
+}
+
+/* ===================================================
+   HERO SECTION
+=================================================== */
+
+.hero{
+
+position:relative;
+
+overflow:hidden;
+
+padding:40px;
+
+margin-bottom:30px;
+
+border-radius:22px;
+
+background:
+
+linear-gradient(
+135deg,
+#8B6A4E,
+#5C4033
+);
+
+box-shadow:
+
+0 12px 35px rgba(0,0,0,.35);
+
+border:1px solid rgba(255,255,255,.08);
+
+}
+
+.hero::before{
+
+content:"";
+
+position:absolute;
+
+right:-60px;
+top:-60px;
+
+width:240px;
+height:240px;
+
+border-radius:50%;
+
+background:rgba(255,255,255,.06);
+
+}
+
+.hero::after{
+
+content:"";
+
+position:absolute;
+
+left:-40px;
+bottom:-40px;
+
+width:180px;
+height:180px;
+
+border-radius:50%;
+
+background:rgba(255,255,255,.04);
+
+}
+
+.hero h1{
+
+margin-top:15px;
+
+font-size:2.2rem;
+
+font-weight:800;
+
+color:white;
+
+}
+
+.hero p{
+
+margin-top:12px;
+
+font-size:1rem;
+
+line-height:1.7;
+
+color:#ECECEC;
+
+max-width:720px;
+
+}
+
+
+/* ===================================================
+   METRIC CARDS
+=================================================== */
+
+.metric-box{
+
+background:#1C1F27;
+
+padding:22px;
+
+border-radius:18px;
+
+border:1px solid rgba(255,255,255,.06);
+
+box-shadow:
+
+0 8px 25px rgba(0,0,0,.28);
+
+transition:.3s;
+
+height:100%;
+
+}
+
+.metric-box:hover{
+
+transform:translateY(-6px);
+
+border-color:#B99878;
+
+box-shadow:
+
+0 15px 35px rgba(0,0,0,.4);
+
+}
+
+.metric-title{
+
+font-size:.85rem;
+
+color:#A8A8A8;
+
+margin-bottom:10px;
+
+letter-spacing:.05em;
+
+}
+
+.metric-value{
+
+font-size:2rem;
+
+font-weight:700;
+
+color:white;
+
+}
+
+
+/* ===================================================
+   CONTENT CARDS
+=================================================== */
+
+.card{
+
+background:#1C1F27;
+
+padding:24px;
+
+border-radius:18px;
+
+border:1px solid rgba(255,255,255,.07);
+
+box-shadow:
+
+0 10px 28px rgba(0,0,0,.25);
+
+margin-top:18px;
+
+transition:.3s;
+
+}
+
+.card:hover{
+
+transform:translateY(-4px);
+
+border-color:#B99878;
+
+}
+
+/* ===================================================
+   INPUTS
+=================================================== */
+
+.stNumberInput input,
+.stTextInput input{
+
+background:#222631 !important;
+
+color:white !important;
+
+border:1px solid rgba(255,255,255,.08) !important;
+
+border-radius:12px !important;
+
+padding:12px !important;
+
+transition:.3s;
+
+}
+
+.stNumberInput input:focus,
+.stTextInput input:focus{
+
+border:1px solid #B99878 !important;
+
+box-shadow:0 0 12px rgba(185,152,120,.45);
+
+}
+
+
+/* SelectBox */
+
+.stSelectbox div[data-baseweb="select"]{
+
+background:#222631;
+
+border-radius:12px;
+
+border:1px solid rgba(255,255,255,.08);
+
+}
+
+
+/* ===================================================
+   BUTTONS
+=================================================== */
+
+.stButton button{
+
+width:100%;
+
+height:50px;
+
+border:none;
+
+border-radius:14px;
+
+font-size:16px;
+
+font-weight:700;
+
+color:white;
+
+background:linear-gradient(
+135deg,
+#8B6A4E,
+#B99878
+);
+
+transition:.3s;
+
+box-shadow:
+
+0 8px 18px rgba(0,0,0,.30);
+
+}
+
+.stButton button:hover{
+
+transform:translateY(-3px);
+
+box-shadow:
+
+0 14px 30px rgba(0,0,0,.40);
+
+filter:brightness(108%);
+
+}
+
+.stButton button:active{
+
+transform:scale(.98);
+
+}
+
+
+/* ===================================================
+   DATAFRAME
+=================================================== */
+
+[data-testid="stDataFrame"]{
+
+border-radius:18px;
+
+overflow:hidden;
+
+border:1px solid rgba(255,255,255,.08);
+
+background:#1C1F27;
+
+box-shadow:
+
+0 10px 25px rgba(0,0,0,.25);
+
+}
+
+[data-testid="stDataFrame"] table{
+
+background:#1C1F27;
+
+color:white;
+
+}
+
+[data-testid="stDataFrame"] th{
+
+background:#2A2F3D !important;
+
+color:white !important;
+
+font-weight:700 !important;
+
+}
+
+[data-testid="stDataFrame"] td{
+
+border-color:rgba(255,255,255,.05) !important;
+
+}
+
+
+/* ===================================================
+   PLOTLY
+=================================================== */
+
+[data-testid="stPlotlyChart"]{
+
+border-radius:18px;
+
+overflow:hidden;
+
+background:#1C1F27;
+
+padding:10px;
+
+border:1px solid rgba(255,255,255,.08);
+
+box-shadow:
+
+0 10px 25px rgba(0,0,0,.25);
+
+}
+
+
+/* ===================================================
+   ALERTS
+=================================================== */
+
+.stSuccess{
+
+border-radius:15px;
+
+}
+
+.stInfo{
+
+border-radius:15px;
+
+}
+
+.stWarning{
+
+border-radius:15px;
+
+}
+
+.stError{
+
+border-radius:15px;
+
+}
+
+
+/* ===================================================
+   CONTAINERS
+=================================================== */
+
+div[data-testid="stVerticalBlock"]>div{
+
+gap:1rem;
+
+}
+
+div[data-testid="stHorizontalBlock"]{
+
+gap:1rem;
+
+}
+
+
+/* ===================================================
+   TITLES
+=================================================== */
+
+h1{
+
+font-weight:800;
+
+letter-spacing:-1px;
+
+}
+
+h2{
+
+font-weight:700;
+
+letter-spacing:-.5px;
+
+}
+
+h3{
+
+font-weight:600;
+
+}
+
+
+/* ===================================================
+   EXPANDER
+=================================================== */
+
+.streamlit-expanderHeader{
+
+background:#1C1F27;
+
+border-radius:14px;
+
+padding:12px;
+
+border:1px solid rgba(255,255,255,.08);
+
+}
+
+.streamlit-expanderContent{
+
+background:#181B22;
+
+border-radius:0 0 14px 14px;
+
+}
+
+
+/* ===================================================
+   SCROLLBAR
+=================================================== */
+
+::-webkit-scrollbar{
+
+width:10px;
+
+height:10px;
+
+}
+
+::-webkit-scrollbar-track{
+
+background:#16181F;
+
+}
+
+::-webkit-scrollbar-thumb{
+
+background:#8B6A4E;
+
+border-radius:50px;
+
+}
+
+::-webkit-scrollbar-thumb:hover{
+
+background:#B99878;
+
+}
+
+
+/* ===================================================
+   ANIMATION
+=================================================== */
+
+.hero,
+.metric-box,
+.card,
+[data-testid="stPlotlyChart"],
+[data-testid="stDataFrame"]{
+
+animation:fadeUp .5s ease;
+
+}
+
+@keyframes fadeUp{
+
+from{
+
+opacity:0;
+
+transform:translateY(20px);
+
+}
+
+to{
+
+opacity:1;
+
+transform:translateY(0);
+
+}
+
+}
+
+
+/* ===================================================
+   HOVER EFFECTS
+=================================================== */
+
+[data-testid="stPlotlyChart"]:hover,
+[data-testid="stDataFrame"]:hover{
+
+transform:translateY(-4px);
+
+transition:.3s;
+
+box-shadow:
+
+0 15px 35px rgba(0,0,0,.35);
+
+}
+
+
+/* ===================================================
+   RESPONSIVE
+=================================================== */
+
+@media(max-width:992px){
+
+.hero{
+
+padding:28px;
+
+}
+
+.hero h1{
+
+font-size:1.8rem;
+
+}
+
+.metric-box{
+
+margin-bottom:15px;
+
+}
+
+}
+
+@media(max-width:768px){
+
+.block-container{
+
+padding-left:1rem;
+
+padding-right:1rem;
+
+}
+
+.hero{
+
+padding:22px;
+
+}
+
+.hero h1{
+
+font-size:1.5rem;
+
+}
+
+.hero p{
+
+font-size:.95rem;
+
+}
+
+.metric-value{
+
+font-size:1.6rem;
+
+}
+
+.card{
+
+padding:18px;
+
+}
+
+}
+/* ===================================================
+   STREAMLIT COMPONENTS
+=================================================== */
+
+/* Containers */
+
+div[data-testid="stVerticalBlockBorderWrapper"]{
+
+background:#1C1F27;
+
+border-radius:18px;
+
+border:1px solid rgba(255,255,255,.08);
+
+padding:18px;
+
+box-shadow:0 10px 25px rgba(0,0,0,.22);
+
+}
+
+
+/* Divider */
+
+hr{
+
+border:none;
+
+height:1px;
+
+background:rgba(255,255,255,.08);
+
+margin:28px 0;
+
+}
+
+
+/* Metric */
+
+div[data-testid="metric-container"]{
+
+background:#1C1F27;
+
+padding:20px;
+
+border-radius:16px;
+
+border:1px solid rgba(255,255,255,.08);
+
+box-shadow:0 8px 18px rgba(0,0,0,.22);
+
+}
+
+div[data-testid="metric-container"]:hover{
+
+border-color:#B99878;
+
+transform:translateY(-4px);
+
+transition:.25s;
+
+}
+
+div[data-testid="metric-container"] label{
+
+color:#AAAAAA !important;
+
+}
+
+div[data-testid="metric-container"] [data-testid="stMetricValue"]{
+
+color:white;
+
+font-size:32px;
+
+font-weight:700;
+
+}
+
+
+/* Tabs */
+
+button[data-baseweb="tab"]{
+
+background:#20242E;
+
+color:#BBBBBB;
+
+border-radius:10px;
+
+margin-right:8px;
+
+padding:10px 18px;
+
+transition:.25s;
+
+}
+
+button[data-baseweb="tab"]:hover{
+
+background:#2B303C;
+
+color:white;
+
+}
+
+button[aria-selected="true"]{
+
+background:linear-gradient(
+135deg,
+#8B6A4E,
+#B99878
+)!important;
+
+color:white!important;
+
+}
+
+
+/* Caption */
+
+[data-testid="stCaptionContainer"]{
+
+color:#AFAFAF;
+
+}
+
+
+/* Markdown */
+
+p{
+
+line-height:1.8;
+
+}
+
+
+/* Links */
+
+a{
+
+color:#B99878;
+
+text-decoration:none;
+
+}
+
+a:hover{
+
+color:white;
+
+}
+
+
+/* Success */
+
+div[data-baseweb="notification"]{
+
+border-radius:15px;
+
+}
+
+
+/* Images */
+
+img{
+
+border-radius:15px;
+
+}
+
+
+/* Footer */
+
+.footer{
+
+margin-top:35px;
+
+padding:20px;
+
+text-align:center;
+
+color:#888;
+
+font-size:14px;
+
+border-top:1px solid rgba(255,255,255,.08);
+
+}
