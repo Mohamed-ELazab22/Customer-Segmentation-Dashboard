@@ -77,8 +77,28 @@ def load_data():
 
     return pd.read_csv(DATA_PATH)
 
+# ==========================================
+# Labels
+# ==========================================
 
+REGION_MAP = {
+    1: "Lisbon",
+    2: "Oporto",
+    3: "Other Region"
+}
+
+CHANNEL_MAP = {
+    1: "Horeca",
+    2: "Retail"
+}
+
+CLUSTER_MAP = {
+    0: "Retail & Supermarket Customers",
+    1: "Hotels, Restaurants & Cafés"
+}
 df = load_data()
+df["Region"] = df["Region"].map(REGION_MAP)
+df["Channel"] = df["Channel"].map(CHANNEL_MAP)
 
 
 FEATURES = [
@@ -89,6 +109,8 @@ FEATURES = [
     "Detergents_Paper",
     "Delicassen"
 ]
+
+
 
 
 # ==========================================
@@ -406,6 +428,7 @@ elif page == "Prediction":
         scaled = scaler.transform(customer)
 
         cluster = model.predict(scaled)[0]
+        cluster_name = CLUSTER_MAP.get(cluster, f"Cluster {cluster}")
 
         distance = model.transform(scaled).min()
 
@@ -416,12 +439,12 @@ elif page == "Prediction":
             "The profile has been evaluated against the trained cluster centers.",
             "MODEL OUTPUT"
         ):
-            st.success(f"Predicted Cluster: {cluster}")
+            st.success(f"Predicted Cluster: {cluster_name}")
 
             c1, c2, c3 = st.columns(3)
 
             with c1:
-                metric_card("◌", "Cluster", cluster, "Assigned segment")
+                metric_card("◌", "Cluster", cluster_name, "Assigned segment")
             with c2:
                 metric_card("↔", "Distance", f"{distance:.3f}", "Nearest center")
             with c3:
@@ -554,10 +577,10 @@ elif page == "Visualization":
     X_pca = pca.transform(X_scaled)
 
     plot_df = pd.DataFrame({
-        "PCA1": X_pca[:, 0],
-        "PCA2": X_pca[:, 1],
-        "Cluster": labels.astype(str)
-    })
+      "PCA1": X_pca[:, 0],
+      "PCA2": X_pca[:, 1],
+      "Cluster": [CLUSTER_MAP[i] for i in labels]
+     })
 
     with content_card(
         "Customer segment map",
@@ -581,7 +604,7 @@ elif page == "Visualization":
                 x=centers[:, 0],
                 y=centers[:, 1],
                 mode="markers+text",
-                text=[f"C{i}" for i in range(model.n_clusters)],
+                text=[CLUSTER_MAP[i] for i in range(model.n_clusters)],
                 textposition="top center",
                 marker=dict(
                     size=18,
@@ -597,6 +620,7 @@ elif page == "Visualization":
             customer = st.session_state["prediction"]
 
             cluster = st.session_state["cluster"]
+            cluster_name = CLUSTER_MAP.get(cluster, f"Cluster {cluster}")
 
             fig.add_trace(
                 go.Scatter(
@@ -608,7 +632,7 @@ elif page == "Visualization":
                         color="red",
                         symbol="star"
                     ),
-                    name=f"Customer (Cluster {cluster})"
+                    name=f"Customer ({cluster_name})"
                 )
             )
 
