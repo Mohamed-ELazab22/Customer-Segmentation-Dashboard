@@ -201,20 +201,6 @@ streamlit run app.py
 
 ---
 
-# 📸 Dashboard Preview
-
-You can add screenshots here.
-
-Example:
-
-```
-images/dashboard.png
-images/prediction.png
-images/visualization.png
-```
-
----
-
 # 🎯 Future Improvements
 
 - Automatic Cluster Description
