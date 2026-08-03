@@ -96,9 +96,13 @@ CLUSTER_MAP = {
     0: "Retail & Supermarket Customers",
     1: "Hotels, Restaurants & Cafés"
 }
+
 df = load_data()
-df["Region"] = df["Region"].map(REGION_MAP)
-df["Channel"] = df["Channel"].map(CHANNEL_MAP)
+
+display_df = df.copy()
+
+display_df["Region"] = display_df["Region"].map(REGION_MAP)
+display_df["Channel"] = display_df["Channel"].map(CHANNEL_MAP)
 
 
 FEATURES = [
@@ -281,7 +285,7 @@ if page == "Dashboard":
         "DATA EXPLORATION"
     ):
         st.dataframe(
-            df.head(10),
+            display_df.head(10),
             use_container_width=True,
             hide_index=True
         )
@@ -292,7 +296,7 @@ if page == "Dashboard":
         "DATA QUALITY"
     ):
         st.dataframe(
-            df.describe(),
+            display_df.describe(),
             use_container_width=True
         )
 
@@ -305,7 +309,7 @@ if page == "Dashboard":
             "DISTRIBUTION"
         ):
             fig = px.pie(
-                df,
+                display_df,
                 names="Channel",
                 title="Customers by Channel",
                 template="plotly_dark"
@@ -321,7 +325,7 @@ if page == "Dashboard":
             "DISTRIBUTION"
         ):
             fig = px.bar(
-                df["Region"].value_counts().reset_index(),
+                display_df["Region"].value_counts().reset_index(),
                 x="Region",
                 y="count",
                 color="Region",
@@ -663,13 +667,13 @@ elif page == "Dataset":
     c1, c2, c3, c4 = st.columns(4)
 
     with c1:
-        metric_card("▦", "Rows", df.shape[0], "Customer records")
+        metric_card("▦", "Rows", display_df.shape[0], "Customer records")
     with c2:
-        metric_card("▤", "Columns", df.shape[1], "Available fields")
+        metric_card("▤", "Columns", display_df.shape[1], "Available fields")
     with c3:
-        metric_card("◫", "Numeric fields", df.select_dtypes(include=np.number).shape[1], "Analysis-ready")
+        metric_card("◫", "Numeric fields", display_df.select_dtypes(include=np.number).shape[1], "Analysis-ready")
     with c4:
-        metric_card("✓", "Missing values", df.isna().sum().sum(), "Data completeness")
+        metric_card("✓", "Missing values", display_df.isna().sum().sum(), "Data completeness")
 
     with content_card(
         "Dataset preview",
@@ -677,7 +681,7 @@ elif page == "Dataset":
         "SOURCE DATA"
     ):
         st.dataframe(
-            df.head(10),
+            display_df.head(10),
             use_container_width=True,
             hide_index=True
         )
@@ -700,7 +704,7 @@ elif page == "Dataset":
             "Null-count audit for every dataset field.",
             "DATA QUALITY"
         ):
-            missing_values = df.isna().sum().rename("Missing values").to_frame()
+            missing_values = display_df.isna().sum().rename("Missing values").to_frame()
             st.dataframe(
                 missing_values,
                 use_container_width=True
